@@ -11,6 +11,8 @@
 		1F3CD03420BBA08400737C95 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3CD03320BBA08400737C95 /* ViewController.swift */; };
 		1F3CD03620BBA08400737C95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F3CD03520BBA08400737C95 /* Assets.xcassets */; };
 		1F3CD03920BBA08400737C95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F3CD03720BBA08400737C95 /* Main.storyboard */; };
+		1F3CD04720BBABC000737C95 /* DDC.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F3CD04520BBABC000737C95 /* DDC.c */; };
+		1F3CD04820BBABC000737C95 /* ddcctl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3CD04620BBABC000737C95 /* ddcctl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,11 @@
 		1F3CD03820BBA08400737C95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F3CD03A20BBA08500737C95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F3CD03B20BBA08500737C95 /* ASUS_Volume.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ASUS_Volume.entitlements; sourceTree = "<group>"; };
+		1F3CD04320BBABBE00737C95 /* ASUS Volume-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ASUS Volume-Bridging-Header.h"; sourceTree = "<group>"; };
+		1F3CD04420BBABBF00737C95 /* DDC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDC.h; sourceTree = "<group>"; };
+		1F3CD04520BBABC000737C95 /* DDC.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DDC.c; sourceTree = "<group>"; };
+		1F3CD04620BBABC000737C95 /* ddcctl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ddcctl.m; sourceTree = "<group>"; };
+		1F3CD04920BBB01000737C95 /* ddcctl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ddcctl.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,12 +60,17 @@
 		1F3CD03020BBA08400737C95 /* ASUS Volume */ = {
 			isa = PBXGroup;
 			children = (
+				1F3CD04520BBABC000737C95 /* DDC.c */,
+				1F3CD04420BBABBF00737C95 /* DDC.h */,
+				1F3CD04920BBB01000737C95 /* ddcctl.h */,
+				1F3CD04620BBABC000737C95 /* ddcctl.m */,
 				1F3CD03120BBA08400737C95 /* AppDelegate.swift */,
 				1F3CD03320BBA08400737C95 /* ViewController.swift */,
 				1F3CD03520BBA08400737C95 /* Assets.xcassets */,
 				1F3CD03720BBA08400737C95 /* Main.storyboard */,
 				1F3CD03A20BBA08500737C95 /* Info.plist */,
 				1F3CD03B20BBA08500737C95 /* ASUS_Volume.entitlements */,
+				1F3CD04320BBABBE00737C95 /* ASUS Volume-Bridging-Header.h */,
 			);
 			path = "ASUS Volume";
 			sourceTree = "<group>";
@@ -95,6 +107,7 @@
 				TargetAttributes = {
 					1F3CD02D20BBA08400737C95 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -134,6 +147,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F3CD04720BBABC000737C95 /* DDC.c in Sources */,
+				1F3CD04820BBABC000737C95 /* ddcctl.m in Sources */,
 				1F3CD03420BBA08400737C95 /* ViewController.swift in Sources */,
 				1F3CD03220BBA08400737C95 /* AppDelegate.swift in Sources */,
 			);
@@ -263,6 +278,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "ASUS Volume/ASUS_Volume.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -270,6 +286,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sheplan.utils.ASUS-Volume";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ASUS Volume/ASUS Volume-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -278,6 +296,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "ASUS Volume/ASUS_Volume.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -285,6 +304,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sheplan.utils.ASUS-Volume";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ASUS Volume/ASUS Volume-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
