@@ -679,6 +679,7 @@
                     <connections>
                         <outlet property="VolumeControlMenuBar" destination="Y3K-1M-Mk8" id="cfs-fD-haK"/>
                         <outlet property="beepMenuItem" destination="ryn-Ar-o28" id="7dh-hF-7ej"/>
+                        <outlet property="monitorsSubMenu" destination="lZl-7N-056" id="6NQ-h6-3Vo"/>
                         <outlet property="sliderMenuItem" destination="1ha-pI-1EB" id="C52-gH-RVc"/>
                         <outlet property="statusSlider" destination="5Rh-UA-A4r" id="Jg4-hB-C3O"/>
                         <outlet property="volumeMenuItem" destination="dR1-KU-iNj" id="On6-kf-JEr"/>
@@ -700,6 +701,10 @@
                             <connections>
                                 <action selector="menuItemBeepChanged:" target="Voe-Tx-rLC" id="yTy-k8-V1f"/>
                             </connections>
+                        </menuItem>
+                        <menuItem title="Monitors" id="seR-HU-A6z">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="Monitors" id="lZl-7N-056" userLabel="MonitorsSubmenu"/>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="GPj-y7-SuG"/>
                         <menuItem title="Quit" id="sgY-8C-QSm">
