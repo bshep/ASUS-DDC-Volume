@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -674,11 +675,47 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="ASUS_Volume" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="ASUS_Volume" customModuleProvider="target">
+                    <connections>
+                        <outlet property="VolumeControlMenuBar" destination="Y3K-1M-Mk8" id="cfs-fD-haK"/>
+                        <outlet property="sliderMenuItem" destination="1ha-pI-1EB" id="C52-gH-RVc"/>
+                        <outlet property="statusSlider" destination="5Rh-UA-A4r" id="Jg4-hB-C3O"/>
+                        <outlet property="volumeMenuItem" destination="dR1-KU-iNj" id="On6-kf-JEr"/>
+                    </connections>
+                </customObject>
+                <menu id="Y3K-1M-Mk8" userLabel="VolumeControlMenuBar">
+                    <items>
+                        <menuItem title="Volume:" enabled="NO" id="dR1-KU-iNj" userLabel="Volume:">
+                            <attributedString key="attributedTitle"/>
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
+                        <menuItem title="VolumeSlider" id="1ha-pI-1EB">
+                            <attributedString key="attributedTitle"/>
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="2ZS-Nc-ZZz"/>
+                        <menuItem title="Quit" id="sgY-8C-QSm">
+                            <attributedString key="attributedTitle"/>
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="menuItemQuit:" target="Voe-Tx-rLC" id="YoW-Ro-6pT"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                </menu>
+                <slider horizontalHuggingPriority="750" id="5Rh-UA-A4r" userLabel="VolumeSlider">
+                    <rect key="frame" x="0.0" y="0.0" width="26" height="106"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <sliderCell key="cell" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="right" numberOfTickMarks="4" sliderType="linear" id="EMs-U4-F3Y">
+                        <connections>
+                            <action selector="menuItemVolumeChanged:" target="Voe-Tx-rLC" id="ZTn-HJ-cGb"/>
+                        </connections>
+                    </sliderCell>
+                </slider>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="37" y="14"/>
         </scene>
     </scenes>
 </document>

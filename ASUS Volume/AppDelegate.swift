@@ -12,50 +12,69 @@ let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLen
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+	@IBOutlet weak var VolumeControlMenuBar: NSMenu!
+	@IBOutlet weak var sliderMenuItem: NSMenuItem!
+	@IBOutlet weak var statusSlider: NSSlider!
+	@IBOutlet weak var volumeMenuItem: NSMenuItem!
 
-
+	var currentVolume: Int32 = 0
 
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
 		if let button = statusItem.button {
 			button.image = NSImage(named:NSImage.Name("VolumeButtonImage"))
-//			button.action = #selector(printQuote(_:))
 		}
 		
+
+		restoreSettings()
 		constructMenu()
-		
-	}
-
-	func applicationWillTerminate(_ aNotification: Notification) {
-		// Insert code here to tear down your application
-	}
-
-	@objc func printQuote(_ sender: Any?) {
-		
 	}
 	
-	@objc func changeVolume(_ sender: NSSlider) {
+	
+	func restoreSettings() {
+		var saveVal: Int32
+			
+		saveVal = Int32(UserDefaults.standard.integer(forKey: "SavedVolume"))
 		
-		print("Slider Val: ", sender.intValue)
-		updateVolume(1,sender.intValue)
+		print("Retrieved Volume: \(saveVal)")
+		
+		if saveVal > 0 && saveVal <= 100 {
+			currentVolume = saveVal
+		} else {
+			currentVolume = 50
+		}
+		
+		volumeMenuItem.title = "Volume: \(currentVolume)"
+		updateVolume(1, currentVolume)
+	}
+
+	func saveSettings() {
+		UserDefaults.standard.set(currentVolume, forKey: "SavedVolume")
+	}
+
+	
+	func applicationWillTerminate(_ aNotification: Notification) {
+		saveSettings()
+	}
+
+	
+	@IBAction func menuItemQuit(_ sender: NSMenuItem) {
+		NSApplication.shared.terminate(NSApplication.shared)
+	}
+
+	@IBAction func menuItemVolumeChanged(_ sender: NSSlider) {
+		currentVolume = sender.intValue
+		
+		print("Slider Val: ", currentVolume)
+		volumeMenuItem.title = "Volume: \(currentVolume)"
+		updateVolume(1,currentVolume)
+
 	}
 	
 	func constructMenu() {
-		let menu = NSMenu()
-		let statusSlider = NSSlider(value: 50.0, minValue: 0.0, maxValue: 100.0, target: nil, action: #selector(changeVolume(_:)))
-		let sliderMenuItem = NSMenuItem()
-		
-//		statusSlider.setFrameSize(NSSize(width: 100, height: 32))
-		statusSlider.isContinuous = false
-		sliderMenuItem.title = "Volume"
+		statusSlider.setFrameSize(NSSize(width: 60, height: 100))
 		sliderMenuItem.view = statusSlider
-
-		
-		menu.addItem(NSMenuItem(title: "Volume: ", action: nil, keyEquivalent: ""))
-		menu.addItem(sliderMenuItem)
-		menu.addItem(NSMenuItem.separator())
-		menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: ""))
-		
-		statusItem.menu = menu
+	
+		statusItem.menu = VolumeControlMenuBar
 	}
 }
 
