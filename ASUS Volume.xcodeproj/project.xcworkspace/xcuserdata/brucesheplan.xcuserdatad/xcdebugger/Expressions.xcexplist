@@ -10,5 +10,13 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "AppDelegate.restoreSettings():AppDelegate.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "beepVal">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

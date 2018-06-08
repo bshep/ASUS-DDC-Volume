@@ -678,6 +678,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="ASUS_Volume" customModuleProvider="target">
                     <connections>
                         <outlet property="VolumeControlMenuBar" destination="Y3K-1M-Mk8" id="cfs-fD-haK"/>
+                        <outlet property="beepMenuItem" destination="ryn-Ar-o28" id="7dh-hF-7ej"/>
                         <outlet property="sliderMenuItem" destination="1ha-pI-1EB" id="C52-gH-RVc"/>
                         <outlet property="statusSlider" destination="5Rh-UA-A4r" id="Jg4-hB-C3O"/>
                         <outlet property="volumeMenuItem" destination="dR1-KU-iNj" id="On6-kf-JEr"/>
@@ -694,6 +695,13 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="2ZS-Nc-ZZz"/>
+                        <menuItem title="Beep" state="on" id="ryn-Ar-o28">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="menuItemBeepChanged:" target="Voe-Tx-rLC" id="yTy-k8-V1f"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="GPj-y7-SuG"/>
                         <menuItem title="Quit" id="sgY-8C-QSm">
                             <attributedString key="attributedTitle"/>
                             <modifierMask key="keyEquivalentModifierMask"/>
