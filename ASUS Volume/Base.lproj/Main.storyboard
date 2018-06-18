@@ -681,6 +681,8 @@
                         <outlet property="beepMenuItem" destination="ryn-Ar-o28" id="7dh-hF-7ej"/>
                         <outlet property="monitorsSubMenu" destination="lZl-7N-056" id="6NQ-h6-3Vo"/>
                         <outlet property="sliderMenuItem" destination="1ha-pI-1EB" id="C52-gH-RVc"/>
+                        <outlet property="startOnLoginMenuItem" destination="ml8-Xr-Wby" id="4NC-6Z-9oT"/>
+                        <outlet property="startonloginMenuItem" destination="ml8-Xr-Wby" id="ebZ-WM-hGY"/>
                         <outlet property="statusSlider" destination="5Rh-UA-A4r" id="Jg4-hB-C3O"/>
                         <outlet property="volumeMenuItem" destination="dR1-KU-iNj" id="On6-kf-JEr"/>
                     </connections>
@@ -702,6 +704,13 @@
                                 <action selector="menuItemBeepChanged:" target="Voe-Tx-rLC" id="yTy-k8-V1f"/>
                             </connections>
                         </menuItem>
+                        <menuItem title="Start on Login" id="ml8-Xr-Wby">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="startOnLoginMenuItemAction:" target="Voe-Tx-rLC" id="zGF-75-fEL"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="pOy-j9-9LN"/>
                         <menuItem title="Monitors" id="seR-HU-A6z">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <menu key="submenu" title="Monitors" id="lZl-7N-056" userLabel="MonitorsSubmenu"/>

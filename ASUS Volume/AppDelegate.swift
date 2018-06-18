@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Foundation
 
 let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
 
@@ -18,6 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	@IBOutlet weak var volumeMenuItem: NSMenuItem!
 	@IBOutlet weak var beepMenuItem: NSMenuItem!
 	@IBOutlet weak var monitorsSubMenu: NSMenu!
+	@IBOutlet weak var startOnLoginMenuItem: NSMenuItem!
 	
 	var currentVolume: Int32 = 0
 	var beepEnable: String = "on"
@@ -27,7 +29,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			button.image = NSImage(named:NSImage.Name("VolumeButtonImage"))
 		}
 		
-
 		restoreSettings()
 		constructMenu()
 	}
@@ -61,7 +62,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			beepMenuItem.state = NSControl.StateValue.off
 		}
 		
+		// find out if we are enabled at login
+		let startOnLoginEnabled = (itemReferencesInLoginItems() != nil)
 		
+		if startOnLoginEnabled {
+			startOnLoginMenuItem.state = NSControl.StateValue.on
+		} else {
+			startOnLoginMenuItem.state = NSControl.StateValue.off
+		}
 	}
 
 	func saveSettings() {
@@ -101,6 +109,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 		
 		
+	}
+	
+	@IBAction func startOnLoginMenuItemAction(_ sender: NSMenuItem) {
+		if sender.state == NSControl.StateValue.on {
+			sender.state = NSControl.StateValue.off
+			toggleLaunchAtStartup(state: false)
+		} else {
+			sender.state = NSControl.StateValue.on
+			toggleLaunchAtStartup(state: true)
+		}
 	}
 	
 	@IBAction func menuMonitorsAction(_ sender: NSMenuItem) {
@@ -143,6 +161,45 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		sliderMenuItem.view = statusSlider
 	
 		statusItem.menu = VolumeControlMenuBar
+	}
+	
+	func toggleLaunchAtStartup(state: Bool? = false) {
+		let itemReferences = itemReferencesInLoginItems()
+		let shouldBeToggled = (itemReferences.existingReference == nil) || state!
+		if let loginItemsRef = LSSharedFileListCreate( nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil).takeRetainedValue() as LSSharedFileList? {
+			if shouldBeToggled {
+				let appUrl : CFURL = NSURL.fileURL(withPath: Bundle.main.bundlePath) as CFURL
+				print("Add login item")
+				LSSharedFileListInsertItemURL(loginItemsRef, itemReferences.lastReference, nil, nil, appUrl, nil, nil)
+				
+			} else {
+				let itemRef = itemReferences.existingReference
+				print("Remove login item")
+				LSSharedFileListItemRemove(loginItemsRef,itemRef);
+			}
+		}
+	}
+	
+	func itemReferencesInLoginItems() -> (existingReference: LSSharedFileListItem?, lastReference: LSSharedFileListItem?) {
+		let appURL : NSURL = NSURL.fileURL(withPath: Bundle.main.bundlePath) as NSURL
+		if let loginItemsRef = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems.takeRetainedValue(), nil).takeRetainedValue() as LSSharedFileList? {
+			
+			let loginItems: NSArray = LSSharedFileListCopySnapshot(loginItemsRef, nil).takeRetainedValue() as NSArray
+			let lastItemRef: LSSharedFileListItem = loginItems.lastObject as! LSSharedFileListItem
+			
+			for (index, _) in loginItems.enumerated() {
+				let currentItemRef: LSSharedFileListItem = loginItems.object(at: index) as! LSSharedFileListItem
+				if let itemURL = LSSharedFileListItemCopyResolvedURL(currentItemRef, 0, nil) {
+					if (itemURL.takeRetainedValue() as NSURL).isEqual(appURL) {
+						return (currentItemRef, lastItemRef)
+					}
+				}
+			}
+			
+			return (nil, lastItemRef)
+		}
+		
+		return (nil, nil)
 	}
 }
 
